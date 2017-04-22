@@ -1,0 +1,33 @@
+# -----------------
+# *** IMPORTANT ***
+# -----------------
+#
+# This is the Travis config file for CookieCutter only. New apps created from
+# `rake template:create` will use the contents of .travis.yml.temp for their
+# Travis config. If you make any changes here you want reflected in cloned apps,
+# you must also make those changes in .travis.yml.temp
+#
+# There are intentional differences between this file and the .temp file. Most
+# notably, we don't deploy CookieCutter to a Heroku app, so the deploy section
+# is left out of here. Most other settings will be identical, though.
+language: ruby
+rvm: 2.4.1
+cache: bundler
+dist: trusty
+before_script:
+- mkdir log
+- mkdir tmp
+- bundle exec rake db:create
+branches:
+  only: master
+addons:
+  postgresql: '9.6'
+notifications:
+  slack:
+    on_success: never
+    on_failure: change
+    rooms:
+      secure: e6GlcmArUGZpRWWuF+tq5ZlgUmygHqiFObZedYqQAoG/ZRj8tH/q78RqvqPbGxC6uoukPEwks1HjmaHmPfYJsjh9j8qj7lPPR2pyZZJ7bLAYGX/7yaqc9IDbB0A/f04EpPZct3JECTv27F0KK3emNYtE7spqr9y2aKlRMivGR84=
+env:
+  global:
+    secure: Lmv4tPEldTiTBVoMwW1pAcQQZKYlvSyy4zHzvJf/9a7gZNZBI3BnNkc6xkQEuWyFN45zOjEE7y2b8I99VIU8NA7ciFojv/MXNdTTEG5ErzGGfF6RWpOYhS5i+ef+LisVhGyZ6EPYsMwU396PCHPaInqEYks5W9hvexTZpfVo47g=

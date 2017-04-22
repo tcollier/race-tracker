@@ -1,0 +1,23 @@
+commons: &commons
+  adapter: postgresql
+  host: localhost
+
+development:
+  << : *commons
+  database: race_tracker_development
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  << : *commons
+  database: race_tracker_test
+  min_messages: WARNING
+
+# Starting with Rails 4.1 Heroku recommends setting the connection pool size
+# when using a threaded server (e.g. Puma)
+# https://devcenter.heroku.com/articles/concurrency-and-database-connections#threaded-servers
+production:
+  adapter: postgresql
+  url:  <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV["DB_POOL"] || ENV['MAX_THREADS'] || 5 %>
